@@ -1,49 +1,67 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import type { MaterialCommunityIcons as IconType } from '@expo/vector-icons';
+import { StyleSheet, View, ScrollView, Image } from "react-native";
+import { useRouter } from "expo-router";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import type { MaterialCommunityIcons as IconType } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 
 export default function FeaturesScreen() {
   const router = useRouter();
 
   const handleNext = () => {
-    router.push('/onboarding/final');
+    router.push("/onboarding/final");
   };
 
   return (
     <ThemedView style={styles.container}>
+      <StatusBar style="dark" />
+      {/* Grain texture will be added manually
+      <Image
+        source={require("@/assets/images/grain-texture.png")}
+        style={styles.grainTexture}
+        resizeMode="cover"
+      />
+      */}
       <SafeAreaView style={styles.safeArea}>
-        <ScrollView 
-          style={styles.scroll} 
+        <ScrollView
+          style={styles.scroll}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.header}>
-            <MaterialCommunityIcons name="check-decagram" size={48} color="#0A7EA4" />
             <ThemedText type="title" style={styles.title}>
-              Ready to Use
+              Features.
             </ThemedText>
           </View>
 
           <View style={styles.features}>
             <Feature
-              icon="cart-variant"
-              title="In-App Purchases"
-              description="Superwall integration for subscriptions and one-time purchases"
+              icon="format-color-fill"
+              title="Customizable Journals"
+              description="Choose your paper style and personalize your writing space"
             />
             <Feature
-              icon="navigation"
-              title="Modern Navigation"
-              description="File-based routing with Expo Router for a great UX"
+              icon="bookmark-outline"
+              title="Guided Templates"
+              description="Follow templates for gratitude, reflection, and goal-setting"
             />
             <Feature
-              icon="theme-light-dark"
-              title="Theming System"
-              description="Beautiful dark and light mode support out of the box"
+              icon="bookshelf"
+              title="Journal Library"
+              description="Organize and access all your journals in one place"
+            />
+            <Feature
+              icon="image-outline"
+              title="Media Integration"
+              description="Attach photos and memories to your journal entries"
+            />
+            <Feature
+              icon="bell-outline"
+              title="Mindful Reminders"
+              description="Schedule time for reflection with gentle notifications"
             />
           </View>
         </ScrollView>
@@ -51,7 +69,7 @@ export default function FeaturesScreen() {
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleNext}>
             <ThemedText type="defaultSemiBold" style={styles.buttonText}>
-              Almost There
+              Continue
             </ThemedText>
           </TouchableOpacity>
         </View>
@@ -60,23 +78,25 @@ export default function FeaturesScreen() {
   );
 }
 
-function Feature({ icon, title, description }: { 
+function Feature({
+  icon,
+  title,
+  description,
+}: {
   icon: keyof typeof IconType.glyphMap;
   title: string;
   description: string;
 }) {
   return (
     <View style={styles.feature}>
-      <View style={styles.featureHeader}>
-        <View style={styles.iconContainer}>
-          <MaterialCommunityIcons name={icon} size={24} color="#0A7EA4" />
-        </View>
-        <View style={styles.featureText}>
-          <ThemedText type="defaultSemiBold" style={styles.featureTitle}>
-            {title}
-          </ThemedText>
-          <ThemedText style={styles.featureDescription}>{description}</ThemedText>
-        </View>
+      <View style={styles.iconContainer}>
+        <MaterialCommunityIcons name={icon} size={20} color="#F97316" />
+      </View>
+      <View style={styles.featureText}>
+        <ThemedText type="defaultSemiBold" style={styles.featureTitle}>
+          {title}
+        </ThemedText>
+        <ThemedText style={styles.featureDescription}>{description}</ThemedText>
       </View>
     </View>
   );
@@ -85,6 +105,13 @@ function Feature({ icon, title, description }: {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFECD9",
+  },
+  grainTexture: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    opacity: 0.15,
   },
   safeArea: {
     flex: 1,
@@ -94,38 +121,37 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 16,
-    gap: 24,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   header: {
-    alignItems: 'center',
-    gap: 16,
+    alignItems: "center",
+    marginBottom: 32,
   },
   title: {
-    fontSize: 32,
-    textAlign: 'center',
+    fontSize: 38,
+    fontWeight: "300",
+    textAlign: "center",
+    letterSpacing: -0.5,
+    color: "#27272A",
   },
   features: {
     gap: 16,
   },
   feature: {
-    backgroundColor: '#0A7EA410',
-    padding: 16,
-    borderRadius: 12,
-  },
-  featureHeader: {
-    flexDirection: 'row',
-    gap: 16,
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 12,
+    marginBottom: 2,
   },
   iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#0A7EA420',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "rgba(249, 115, 22, 0.1)",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 1,
   },
   featureText: {
     flex: 1,
@@ -133,24 +159,37 @@ const styles = StyleSheet.create({
   },
   featureTitle: {
     fontSize: 17,
+    color: "#27272A",
+    letterSpacing: 0.2,
   },
   featureDescription: {
     fontSize: 15,
-    opacity: 0.7,
+    opacity: 0.8,
     lineHeight: 20,
+    color: "#525258",
+    fontWeight: "300",
+    letterSpacing: 0.2,
   },
   buttonContainer: {
     paddingHorizontal: 24,
     paddingVertical: 16,
+    alignItems: "center",
   },
   button: {
-    backgroundColor: '#0A7EA4',
-    padding: 20,
-    borderRadius: 16,
-    alignItems: 'center',
+    backgroundColor: "#F97316",
+    paddingVertical: 18,
+    paddingHorizontal: 48,
+    borderRadius: 30,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
+    letterSpacing: 0.5,
   },
-}); 
+});
